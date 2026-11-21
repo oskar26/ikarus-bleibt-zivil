@@ -1,0 +1,754 @@
+@import "tailwindcss";
+
+/* --------------------------------------------------------------------------
+   Open Sauce (SIL Open Font License 1.1, siehe assets/fonts/OFL-LICENSE.txt)
+   Lokal eingebunden – es werden keine externen Font-Server kontaktiert.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/open-sauce-sans-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/open-sauce-sans-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/open-sauce-sans-latin-700-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./assets/fonts/open-sauce-sans-latin-900-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./assets/fonts/open-sauce-one-latin-900-italic.woff2") format("woff2");
+}
+
+@theme {
+  --color-cream: #ede5d6;
+  --color-red: #db4a2b;
+  /* etwas dunkler als das #e45334 der Vorlage, damit große Schrift auf Creme 3:1 Kontrast erreicht */
+  --color-red-hot: #df4d2e;
+  --color-ink: #6a1e0f;
+  --font-sans: "Open Sauce Sans", "Open Sauce One", "Open Sauce", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.25rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    font-variant-numeric: proportional-nums;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 3px solid var(--focus, var(--color-ink));
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------- Layout & Flächen ---------- */
+  .page {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.125rem, 4.2vw, 3.75rem);
+  }
+  .on-cream {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    --focus: var(--color-ink);
+  }
+  .on-red {
+    background-color: var(--color-red);
+    color: var(--color-cream);
+    --focus: var(--color-cream);
+  }
+
+  /* ---------- Typografie ---------- */
+  .display {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.062em;
+    line-height: 0.8;
+  }
+  /* Wortmarke: Open Sauce Bold */
+  .wordmark {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.062em;
+    line-height: 0.8;
+  }
+  .wordmark > span {
+    display: block;
+  }
+  /* Entspricht dem „Outline“-Effekt der Vorlage: Schrift wird fetter */
+  .fat {
+    -webkit-text-stroke: 0.035em currentColor;
+  }
+  .label {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .copy,
+  .copy-xl {
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+    -webkit-hyphenate-limit-before: 4;
+    -webkit-hyphenate-limit-after: 4;
+    text-wrap: pretty;
+  }
+  .copy {
+    font-size: 1.125rem;
+    line-height: 1.38;
+    letter-spacing: -0.025em;
+  }
+  /* Fließtext auf Rot: mindestens 24 px, damit der Kontrast als „großer Text“ reicht */
+  .copy-xl {
+    font-size: clamp(1.5rem, 2.05vw, 1.85rem);
+    line-height: 1.17;
+    letter-spacing: -0.045em;
+  }
+  .nav-link {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-thickness 0.15s ease;
+  }
+  .nav-link:hover {
+    text-decoration-thickness: 0.17em;
+  }
+  .cluster {
+    container-type: inline-size;
+  }
+
+  /* ---------- Buttons & Chips ---------- */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45em;
+    border-radius: 999px;
+    padding: 0.72em 1.2em 0.7em;
+    background-color: var(--color-red);
+    color: var(--color-cream);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.055em;
+    line-height: 0.9;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-decoration-thickness: 0.07em;
+    text-underline-offset: 0.13em;
+    -webkit-text-stroke: 0.018em currentColor;
+    box-shadow:
+      0 0.55em 0.9em -0.3em rgb(106 30 15 / 0.6),
+      0 0.12em 0.25em rgb(106 30 15 / 0.25);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .pill:hover {
+    transform: translateY(-0.12em) rotate(-1deg);
+    box-shadow:
+      0 0.85em 1.25em -0.35em rgb(106 30 15 / 0.6),
+      0 0.15em 0.3em rgb(106 30 15 / 0.3);
+  }
+  .pill:active {
+    transform: translateY(0.05em);
+  }
+  .pill--cream {
+    background-color: var(--color-cream);
+    color: var(--color-red);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    border: 2px solid var(--color-red);
+    border-radius: 999px;
+    padding: 0.44em 0.85em 0.4em;
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+  .chip--solid {
+    border-color: var(--color-cream);
+    background: var(--color-cream);
+  }
+  .chip--dashed {
+    border-style: dashed;
+  }
+  a.chip {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+  a.chip:hover {
+    background: var(--color-red);
+    color: var(--color-cream);
+    text-decoration: none;
+  }
+
+  /* ---------- Bildmotiv (Ikarus mit Megafon) – gehört zum Streik ---------- */
+  .ikarus {
+    display: block;
+    aspect-ratio: 715 / 1064;
+    --ikarus-src: url("./assets/raw/IkarusWehrpflicht.png");
+    background-image: var(--ikarus-src);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+  .on-red .ikarus,
+  .teaser-fig {
+    filter: drop-shadow(0 0 1px rgb(237 229 214 / 0.55)) drop-shadow(0 0.15rem 0.4rem rgb(106 30 15 / 0.25));
+  }
+  .ikarus.ikarus--swap {
+    --ikarus-src: url("./assets/raw/IkarusWehrpflicht-inv.png");
+    filter: drop-shadow(0 0 1px rgb(237 229 214 / 0.35));
+  }
+
+  /* ---------- Deko ---------- */
+  .blob {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 58% 42% 63% 37% / 46% 55% 45% 54%;
+    background: radial-gradient(
+      120% 120% at 26% 20%,
+      rgb(255 255 255 / 0.62),
+      rgb(255 255 255 / 0.1) 46%,
+      rgb(206 186 154 / 0.3) 80%,
+      rgb(255 255 255 / 0.45) 100%
+    );
+    box-shadow:
+      inset 0 0 0 1.5px rgb(255 255 255 / 0.5),
+      inset 0 -1.5rem 3rem rgb(200 176 140 / 0.35),
+      0 1.5rem 3.5rem rgb(150 110 70 / 0.12);
+  }
+  .arrow {
+    display: block;
+    flex: none;
+    animation: nudge 1.9s ease-in-out infinite;
+  }
+  .arrow--mirrored {
+    transform: scaleX(-1);
+    --nudge-x: -0.2rem;
+  }
+  .stamp {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-red);
+    color: var(--color-cream);
+    box-shadow: 0 0.7rem 1.4rem -0.6rem rgb(106 30 15 / 0.6);
+    container-type: inline-size;
+  }
+  .stamp-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: spin 38s linear infinite;
+  }
+  .stamp-core {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+    line-height: 0.84;
+  }
+  .stamp-core b {
+    display: block;
+    font-size: 11.5cqw;
+    font-weight: 700;
+  }
+  .stamp-core i {
+    display: block;
+    font-size: 11cqw;
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  /* ---------- Hero (Maße in cqw: skaliert wie ein Plakat mit der Breite) ---------- */
+  .hero-board {
+    container-type: inline-size;
+    position: relative;
+  }
+  .hero-art {
+    position: relative;
+  }
+  .hero-wordmark {
+    color: var(--color-red);
+    font-size: 28.4cqw;
+  }
+  .hero-stamp {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 49.5cqw;
+    width: 32cqw;
+    rotate: 10deg;
+  }
+  .hero-slogan {
+    margin-top: 6.5cqw;
+    color: var(--color-red-hot);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.8;
+  }
+  .hero-slogan > span {
+    display: block;
+    white-space: nowrap;
+  }
+  .hs-1 {
+    font-size: 11.4cqw;
+  }
+  .hs-1 .sm {
+    font-size: 0.66em;
+  }
+  .hs-2 {
+    margin-top: 0.7cqw;
+    font-size: 23.4cqw;
+    font-weight: 900;
+    letter-spacing: -0.062em;
+  }
+  .hs-3 {
+    margin-top: 1.2cqw;
+    font-size: 10.8cqw;
+  }
+  .hs-3 .sm {
+    display: block;
+    margin-bottom: 0.1em;
+    font-size: 0.74em;
+  }
+  .hero-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 1.9rem;
+    margin-top: 2.1rem;
+  }
+  .cta {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-red);
+  }
+
+  .teaser {
+    container-type: inline-size;
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    margin-top: 3rem;
+    rotate: -2deg;
+    transition: transform 0.25s ease;
+  }
+  .teaser:hover {
+    transform: translateY(-5px) rotate(1deg);
+  }
+  .teaser-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 100 / 92;
+    overflow: hidden;
+    border-radius: 6cqw;
+    background: var(--color-red);
+    color: var(--color-cream);
+    box-shadow: 0 3.5cqw 7cqw -3cqw rgb(106 30 15 / 0.65);
+  }
+  .teaser-chip {
+    position: absolute;
+    left: 5cqw;
+    top: 5cqw;
+    border-radius: 999px;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: 0.5em 0.85em 0.46em;
+    font-size: 4.1cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+  .teaser-fig {
+    position: absolute;
+    left: 0;
+    bottom: 13cqw;
+    height: 54cqw;
+  }
+  .teaser-title {
+    position: absolute;
+    left: 46.5cqw;
+    top: 23.5cqw;
+    font-size: 13.4cqw;
+  }
+  .teaser-date {
+    position: absolute;
+    left: 45.6cqw;
+    top: 48cqw;
+    font-size: 21.5cqw;
+    letter-spacing: -0.072em;
+  }
+  .teaser-bar {
+    position: absolute;
+    left: 4cqw;
+    right: 4cqw;
+    bottom: 4cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2cqw;
+    border-radius: 999px;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: 3.1cqw 4.4cqw 2.9cqw;
+    font-size: 3.85cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 64rem) {
+    .hero-art {
+      height: 34.5cqw;
+    }
+    .hero-wordmark {
+      position: absolute;
+      left: 0;
+      top: 0.6cqw;
+      font-size: 12.4cqw;
+    }
+    .hero-stamp {
+      left: 49.5cqw;
+      right: auto;
+      top: 1cqw;
+      width: 13.2cqw;
+      rotate: 12deg;
+    }
+    .hero-slogan {
+      margin: 0;
+    }
+    .hero-slogan > span {
+      position: absolute;
+      margin: 0;
+    }
+    .hs-1 {
+      left: 40.6cqw;
+      top: 15.9cqw;
+      font-size: 5cqw;
+    }
+    .hs-2 {
+      left: 29.4cqw;
+      top: 20.8cqw;
+      font-size: 9.3cqw;
+    }
+    .hs-3 {
+      left: 29.8cqw;
+      top: 29.5cqw;
+      font-size: 4.9cqw;
+    }
+    .hs-3 .sm {
+      display: inline;
+      margin: 0;
+    }
+    .hero-foot {
+      flex-direction: row;
+      align-items: center;
+      gap: 3.25rem;
+      margin-top: 2.4cqw;
+    }
+    .teaser {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 29.2cqw;
+      max-width: none;
+      margin: 0;
+      rotate: 2.5deg;
+    }
+  }
+
+  /* ---------- Überschriften-Cluster (skalieren mit ihrer Spalte) ---------- */
+  .about-head > *,
+  .topics-head > *,
+  .dates-head > *,
+  .join-head > * {
+    display: block;
+    white-space: nowrap;
+  }
+  .ah-1 {
+    font-size: max(7cqw, 1.5rem);
+  }
+  .ah-2 {
+    margin-top: 0.24em;
+    margin-left: 3.5cqw;
+    font-size: 10.4cqw;
+  }
+  .ah-3 {
+    margin-top: 0.2em;
+    margin-left: 27cqw;
+    font-size: max(5.2cqw, 1.3rem);
+  }
+  .ah-4 {
+    margin-top: max(0.04em, 0.4rem);
+    font-size: 11.8cqw;
+  }
+  .th-1 {
+    margin-left: 0.6cqw;
+    font-size: max(9cqw, 1.6rem);
+  }
+  .th-2 {
+    margin-top: 0.03em;
+    font-size: 21.8cqw;
+  }
+  .dh-1 {
+    margin-left: 0.8cqw;
+    font-size: max(6.4cqw, 1.5rem);
+  }
+  .dh-2 {
+    margin-top: 0.03em;
+    font-size: min(20.6cqw, 16rem);
+  }
+  .jh-1 {
+    font-size: 17cqw;
+  }
+  .jh-2 {
+    margin-top: -0.02em;
+    margin-left: 16cqw;
+    font-size: 36cqw;
+  }
+  .topic-no {
+    color: transparent;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    letter-spacing: -0.05em;
+    -webkit-text-stroke: 2.5px var(--color-red);
+  }
+
+  /* ---------- Streikplakat („offizielle Vorlage“, mit Megafon) ---------- */
+  .poster {
+    container-type: inline-size;
+    width: 100%;
+    max-width: 33rem;
+    margin-inline: auto;
+  }
+  .poster-sheet {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 3.6cqw;
+    background: var(--color-cream);
+    color: var(--color-red);
+    box-shadow:
+      0 5cqw 9cqw -4cqw rgb(60 12 4 / 0.65),
+      0 0.6cqw 1.2cqw rgb(60 12 4 / 0.2);
+    rotate: -2deg;
+  }
+  .poster-blob {
+    left: 34cqw;
+    top: -24cqw;
+    width: 84cqw;
+    height: 64cqw;
+    rotate: 22deg;
+  }
+  .poster-burst {
+    position: absolute;
+    right: 13.5cqw;
+    top: 2cqw;
+    width: 21cqw;
+    rotate: 14deg;
+    color: var(--color-red-hot);
+  }
+  .poster-title {
+    position: absolute;
+    left: 6cqw;
+    top: 6.5cqw;
+    font-size: 21cqw;
+  }
+  .poster-sub {
+    position: absolute;
+    left: 6.6cqw;
+    top: 41.8cqw;
+    color: var(--color-ink);
+    font-size: 4.4cqw;
+  }
+  .poster-fig {
+    position: absolute;
+    left: 1cqw;
+    bottom: 2cqw;
+    height: 52cqw;
+  }
+  .poster-slogan {
+    position: absolute;
+    left: 46.5cqw;
+    top: 48.5cqw;
+    color: var(--color-red-hot);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.8;
+    white-space: nowrap;
+  }
+  .poster-slogan > span {
+    display: block;
+  }
+  .ps-1 {
+    font-size: 12.4cqw;
+  }
+  .ps-2 {
+    margin-left: 1.5cqw;
+    font-size: 8.4cqw;
+  }
+  .ps-2 .sm {
+    font-size: 0.5em;
+  }
+  .ps-3 {
+    margin-left: 3cqw;
+    font-size: 10.8cqw;
+  }
+  .ps-4 {
+    margin-left: 0.5cqw;
+    font-size: 8cqw;
+  }
+  .ps-4 .sm {
+    font-size: 0.7em;
+  }
+  .ps-5 {
+    margin-left: 5cqw;
+    font-size: 12.4cqw;
+  }
+  .poster-date {
+    position: absolute;
+    right: 5cqw;
+    top: 90.5cqw;
+    font-size: 24cqw;
+    letter-spacing: -0.072em;
+  }
+  .poster-org {
+    position: absolute;
+    right: 5cqw;
+    bottom: 4.2cqw;
+    max-width: 66cqw;
+    text-align: right;
+  }
+  .poster-org small {
+    display: block;
+    color: var(--color-ink);
+    font-size: 3cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    line-height: 1.05;
+  }
+  .poster-org strong {
+    display: block;
+    margin-top: 0.9cqw;
+    font-size: 3.9cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.062em;
+    line-height: 0.85;
+  }
+
+  /* ---------- Dialoge (Impressum / Datenschutz) ---------- */
+  .legal-dialog {
+    margin: auto;
+    width: min(36rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    border-radius: 1.75rem;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    --focus: var(--color-ink);
+    box-shadow: 0 2rem 4rem -1rem rgb(40 8 2 / 0.6);
+  }
+  .legal-dialog::backdrop {
+    background: rgb(106 30 15 / 0.62);
+    backdrop-filter: blur(3px);
+  }
+
+  /* ---------- Einblenden beim Scrollen ---------- */
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    translate: 0 1.5rem;
+    transition:
+      opacity 0.6s ease,
+      translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js-reveal [data-reveal].is-in {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes nudge {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: var(--nudge-x, 0.2rem) 0.16rem;
+  }
+}
