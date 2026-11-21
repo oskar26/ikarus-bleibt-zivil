@@ -44,7 +44,7 @@ const LINKS = [
 export function Footer() {
   const impressum = useRef<HTMLDialogElement>(null);
   const datenschutz = useRef<HTMLDialogElement>(null);
-  const { whatsapp } = channels;
+  const { whatsapp, signal, email } = channels;
 
   return (
     <footer className="on-red relative overflow-hidden">
@@ -113,7 +113,18 @@ export function Footer() {
           <a href={whatsapp.url} target="_blank" rel="noopener noreferrer" className="nav-link font-bold">
             WhatsApp-Kanal
           </a>{" "}
-          (Signal-Gruppe für Mitglieder folgt).
+          –{" "}
+          {signal.url ? (
+            <a href={signal.url} target="_blank" rel="noopener noreferrer" className="nav-link font-bold">
+              {signal.label}
+            </a>
+          ) : (
+            <span className="font-bold">{signal.label} (Link folgt)</span>
+          )}{" "}
+          –{" "}
+          <a href={email.url} className="nav-link font-bold">
+            {email.label}
+          </a>
         </p>
         <p>Diese Website ist ein Angebot der Initiative, nicht der Schule.</p>
       </LegalDialog>

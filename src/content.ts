@@ -81,7 +81,7 @@ export const events: EventItem[] = [
   },
 ];
 
-/** Kontaktwege: WhatsApp nur für Infos, Signal für Mitglieder. */
+/** Kontaktwege: WhatsApp nur für Infos, Signal für Mitglieder, E-Mail. */
 export const channels = {
   whatsapp: {
     label: "WhatsApp-Kanal",
@@ -92,8 +92,12 @@ export const channels = {
   signal: {
     label: "Signal-Gruppe",
     role: "Für Mitglieder",
-    description: "Hier organisiert sich die Gruppe. Der Link ist noch nicht fertig.",
-    url: "", // folgt
+    description: "Hier koordinieren wir uns als Mitglieder. Der Einladungslink folgt.",
+    url: "", // folgt – sobald der Link bekannt ist
+  },
+  email: {
+    label: "E-Mail",
+    url: "mailto:ikarus.bleibt@ethik.de",
   },
 };
 

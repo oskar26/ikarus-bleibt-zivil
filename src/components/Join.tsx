@@ -32,7 +32,20 @@ function ChannelCards() {
         </div>
         <p className="copy text-[1.2rem] mt-4 max-w-[30rem]">{signal.description}</p>
         <p className="mt-6">
-          <span className="chip chip--dashed">Signal-Link folgt</span>
+          {signal.url ? (
+            <a
+              href={signal.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill text-[1.15rem] sm:text-[1.35rem]"
+            >
+              In die {signal.label} einladen
+              <ExternalIcon />
+              <span className="sr-only"> (öffnet in neuem Tab)</span>
+            </a>
+          ) : (
+            <span className="chip chip--dashed">{signal.label} – Link folgt</span>
+          )}
         </p>
       </div>
     </div>
