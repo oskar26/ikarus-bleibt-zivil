@@ -1,9 +1,9 @@
-import { strike } from "../content";
-import { Arrow, ArrowRightIcon, HalftoneEdge, Ikarus, Pill, Stamp } from "./ui";
+import Link from "next/link";
+import { Arrow, ArrowRightIcon, HalftoneEdge, Ikarus, Pill } from "./ui";
 
 export function Hero() {
   return (
-    <section id="top" className="on-cream relative overflow-hidden">
+    <section className="on-cream relative overflow-hidden">
       <div
         aria-hidden="true"
         className="blob left-[-16%] top-[-11rem] h-[34rem] w-[46rem] max-w-[95vw] rotate-[-18deg]"
@@ -15,15 +15,12 @@ export function Hero() {
 
       <div className="page relative pb-10 pt-6 lg:pb-11 lg:pt-7">
         <div className="hero-board">
-          {/* Gruppe: nur Schrift und Farben */}
           <div className="hero-art">
             <h1 className="hero-wordmark wordmark">
               <span>Ikarus </span>
               <span>bleibt </span>
               <span>zivil</span>
             </h1>
-
-            <Stamp className="hero-stamp" />
 
             <p className="hero-slogan">
               <span className="hs-1">
@@ -38,6 +35,9 @@ export function Hero() {
             </p>
           </div>
 
+          {/* Nur die Figur – orange, ohne Karte und ohne Stempel */}
+          <Ikarus label="Ikarus mit Megafon" className="hero-ikarus" />
+
           <div className="hero-foot">
             <div className="cta">
               <Arrow className="h-[3.1rem] w-auto -translate-y-2 sm:h-[3.6rem]" />
@@ -49,37 +49,15 @@ export function Hero() {
 
             <div className="max-w-[37rem]">
               <p className="copy lg:text-[1.2rem]">
-                Wir sind eine Initiativ&shy;gruppe von Schüler*innen des FWG. Wir stehen gegen Wehrpflicht, für
-                Bundeswehr raus aus den Schulen und für mehr Geld in Bildung und Soziales.
+                Wir sind eine Initiativ&shy;gruppe von Schüler*innen des FWG. Wir stehen gegen Wehrpflicht und
+                Militarisierung, für bundeswehrfreie Schulen und für mehr Geld in Bildung, Gesundheit und Soziales.
               </p>
-              <a href="#themen" className="label nav-link mt-4 inline-flex items-center gap-2 text-[1.167rem] text-red">
-                Zu unseren Punkten
+              <Link href="/themen" className="label nav-link mt-4 inline-flex items-center gap-2 text-[1.167rem] text-red">
+                Zu unseren Themen
                 <ArrowRightIcon />
-              </a>
+              </Link>
             </div>
           </div>
-
-          {/* Nächster Termin ist der Schulstreik des Bündnisses – hier ist das Megafon richtig */}
-          <a
-            href="#streik"
-            className="teaser"
-            aria-label={`Nächster Termin: Schulstreik gegen Wehrpflicht am ${strike.date}. Wir sind dabei. Zu den Details.`}
-          >
-            <span className="teaser-card" aria-hidden="true">
-              <span className="teaser-chip">Nächster Termin</span>
-              <Ikarus className="teaser-fig ikarus--swap" />
-              <span className="teaser-title display">
-                Schul
-                <br />
-                Streik
-              </span>
-              <span className="teaser-date display">{strike.date}</span>
-              <span className="teaser-bar">
-                <span>Wir sind dabei!</span>
-                <ArrowRightIcon />
-              </span>
-            </span>
-          </a>
         </div>
       </div>
 

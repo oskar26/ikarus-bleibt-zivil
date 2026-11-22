@@ -1,4 +1,5 @@
 import { useId, type CSSProperties, type ReactNode } from "react";
+import Link from "next/link";
 import { cn } from "../utils/cn";
 
 export function useSafeId(prefix: string) {
@@ -54,23 +55,57 @@ export function ExternalIcon({ className }: { className?: string }) {
   );
 }
 
+export function DownloadIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="0.85em"
+      height="0.85em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={cn("shrink-0", className)}
+    >
+      <path d="M12 3.5v11.5M6.5 10 12 15.5 17.5 10M4.5 20.5h15" />
+    </svg>
+  );
+}
+
 type PillProps = {
   href: string;
   children: ReactNode;
   variant?: "red" | "cream";
   external?: boolean;
+  /** Dateiname für Downloads – zeigt zusätzlich ein Download-Symbol */
+  download?: string;
   className?: string;
 };
 
 /** Runder Button wie in der Vorlage: unterstrichen, fett, mit Schatten. */
-export function Pill({ href, children, variant = "red", external = false, className }: PillProps) {
+export function Pill({ href, children, variant = "red", external = false, download, className }: PillProps) {
+  const classes = cn("pill", variant === "cream" && "pill--cream", className);
+
+  // Interne Seiten: ohne Neuladen wechseln
+  if (href.startsWith("/") && !download && !external) {
+    return (
+      <Link href={href} className={classes}>
+        <span>{children}</span>
+      </Link>
+    );
+  }
+
   return (
     <a
       href={href}
-      className={cn("pill", variant === "cream" && "pill--cream", className)}
+      className={classes}
+      {...(download ? { download } : {})}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       <span>{children}</span>
+      {download && <DownloadIcon />}
       {external && (
         <>
           <ExternalIcon />

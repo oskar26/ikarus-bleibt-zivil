@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------------------------------
-   Open Sauce (SIL Open Font License 1.1, siehe assets/fonts/OFL-LICENSE.txt)
+   Open Sauce (SIL Open Font License 1.1, siehe public/fonts/OFL-LICENSE.txt)
    Lokal eingebunden – es werden keine externen Font-Server kontaktiert.
    -------------------------------------------------------------------------- */
 @font-face {
@@ -9,35 +9,35 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("./assets/fonts/open-sauce-sans-latin-500-normal.woff2") format("woff2");
+  src: url("/fonts/open-sauce-sans-latin-500-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Open Sauce Sans";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("./assets/fonts/open-sauce-sans-latin-700-normal.woff2") format("woff2");
+  src: url("/fonts/open-sauce-sans-latin-700-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Open Sauce Sans";
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url("./assets/fonts/open-sauce-sans-latin-700-italic.woff2") format("woff2");
+  src: url("/fonts/open-sauce-sans-latin-700-italic.woff2") format("woff2");
 }
 @font-face {
   font-family: "Open Sauce Sans";
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url("./assets/fonts/open-sauce-sans-latin-900-normal.woff2") format("woff2");
+  src: url("/fonts/open-sauce-sans-latin-900-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Open Sauce Sans";
   font-style: italic;
   font-weight: 900;
   font-display: swap;
-  src: url("./assets/fonts/open-sauce-one-latin-900-italic.woff2") format("woff2");
+  src: url("/fonts/open-sauce-one-latin-900-italic.woff2") format("woff2");
 }
 
 @theme {
@@ -138,6 +138,7 @@
   }
   .copy,
   .copy-xl {
+    overflow-wrap: break-word;
     hyphens: auto;
     hyphenate-limit-chars: 10 4 4;
     -webkit-hyphenate-limit-before: 4;
@@ -189,8 +190,8 @@
     text-underline-offset: 0.13em;
     -webkit-text-stroke: 0.018em currentColor;
     box-shadow:
-      0 0.55em 0.9em -0.3em rgb(106 30 15 / 0.6),
-      0 0.12em 0.25em rgb(106 30 15 / 0.25);
+      0 0.55em 0.9em -0.3em rgb(var(--shadow-rgb) / 0.6),
+      0 0.12em 0.25em rgb(var(--shadow-rgb) / 0.25);
     transition:
       transform 0.18s ease,
       box-shadow 0.18s ease;
@@ -198,8 +199,8 @@
   .pill:hover {
     transform: translateY(-0.12em) rotate(-1deg);
     box-shadow:
-      0 0.85em 1.25em -0.35em rgb(106 30 15 / 0.6),
-      0 0.15em 0.3em rgb(106 30 15 / 0.3);
+      0 0.85em 1.25em -0.35em rgb(var(--shadow-rgb) / 0.6),
+      0 0.15em 0.3em rgb(var(--shadow-rgb) / 0.3);
   }
   .pill:active {
     transform: translateY(0.05em);
@@ -243,7 +244,7 @@
   .ikarus {
     display: block;
     aspect-ratio: 715 / 1064;
-    --ikarus-src: url("./assets/raw/IkarusWehrpflicht.png");
+    --ikarus-src: url("/img/IkarusWehrpflicht.png");
     background-image: var(--ikarus-src);
     background-size: contain;
     background-repeat: no-repeat;
@@ -251,10 +252,10 @@
   }
   .on-red .ikarus,
   .teaser-fig {
-    filter: drop-shadow(0 0 1px rgb(237 229 214 / 0.55)) drop-shadow(0 0.15rem 0.4rem rgb(106 30 15 / 0.25));
+    filter: drop-shadow(0 0 1px rgb(237 229 214 / 0.55)) drop-shadow(0 0.15rem 0.4rem rgb(var(--shadow-rgb) / 0.25));
   }
   .ikarus.ikarus--swap {
-    --ikarus-src: url("./assets/raw/IkarusWehrpflicht-inv.png");
+    --ikarus-src: url("/img/IkarusWehrpflicht-inv.png");
     filter: drop-shadow(0 0 1px rgb(237 229 214 / 0.35));
   }
 
@@ -290,7 +291,7 @@
     border-radius: 50%;
     background: var(--color-red);
     color: var(--color-cream);
-    box-shadow: 0 0.7rem 1.4rem -0.6rem rgb(106 30 15 / 0.6);
+    box-shadow: 0 0.7rem 1.4rem -0.6rem rgb(var(--shadow-rgb) / 0.6);
     container-type: inline-size;
   }
   .stamp-ring {
@@ -341,6 +342,12 @@
     top: 49.5cqw;
     width: 32cqw;
     rotate: 10deg;
+  }
+  /* Figur im Hero: orange, ohne Karte. Steht unter dem Slogan, rechtsbündig. */
+  .hero-ikarus {
+    height: 15.5rem;
+    margin: 0.25rem 0 0 auto;
+    filter: drop-shadow(0 0.7rem 0.5rem rgb(var(--shadow-rgb) / 0.16));
   }
   .hero-slogan {
     margin-top: 6.5cqw;
@@ -409,7 +416,7 @@
     border-radius: 6cqw;
     background: var(--color-red);
     color: var(--color-cream);
-    box-shadow: 0 3.5cqw 7cqw -3cqw rgb(106 30 15 / 0.65);
+    box-shadow: 0 3.5cqw 7cqw -3cqw rgb(var(--shadow-rgb) / 0.65);
   }
   .teaser-chip {
     position: absolute;
@@ -482,6 +489,14 @@
       width: 13.2cqw;
       rotate: 12deg;
     }
+    .hero-ikarus {
+      position: absolute;
+      right: 0;
+      top: 1cqw;
+      height: 28cqw;
+      margin: 0;
+      z-index: 1;
+    }
     .hero-slogan {
       margin: 0;
     }
@@ -502,7 +517,7 @@
     .hs-3 {
       left: 29.8cqw;
       top: 29.5cqw;
-      font-size: 4.9cqw;
+      font-size: 4.3cqw;
     }
     .hs-3 .sm {
       display: inline;
@@ -596,8 +611,8 @@
     background: var(--color-cream);
     color: var(--color-red);
     box-shadow:
-      0 5cqw 9cqw -4cqw rgb(60 12 4 / 0.65),
-      0 0.6cqw 1.2cqw rgb(60 12 4 / 0.2);
+      0 5cqw 9cqw -4cqw rgb(var(--shadow-deep-rgb) / 0.65),
+      0 0.6cqw 1.2cqw rgb(var(--shadow-deep-rgb) / 0.2);
     rotate: -2deg;
   }
   .poster-blob {
@@ -716,10 +731,10 @@
     background: var(--color-cream);
     color: var(--color-ink);
     --focus: var(--color-ink);
-    box-shadow: 0 2rem 4rem -1rem rgb(40 8 2 / 0.6);
+    box-shadow: 0 2rem 4rem -1rem rgb(var(--shadow-deep-rgb) / 0.6);
   }
   .legal-dialog::backdrop {
-    background: rgb(106 30 15 / 0.62);
+    background: rgb(var(--shadow-rgb) / 0.62);
     backdrop-filter: blur(3px);
   }
 
@@ -750,5 +765,269 @@
   }
   50% {
     translate: var(--nudge-x, 0.2rem) 0.16rem;
+  }
+}
+
+/* ==========================================================================
+   Erweiterungen: Unterseiten, grünes Thema mit Camouflage, Petition
+   ========================================================================== */
+:root {
+  /* Schattenfarben als Variablen, damit Themen sie überschreiben können */
+  --shadow-rgb: 106 30 15;
+  --shadow-deep-rgb: 60 12 4;
+}
+
+@layer components {
+  .nav-bar {
+    box-shadow: 0 14px 26px -16px rgb(var(--shadow-deep-rgb) / 0.75);
+  }
+  .nav-link[aria-current="page"] {
+    text-decoration-thickness: 0.17em;
+  }
+
+  /* ---------- Grünes Thema (Seite „Bundeswehrfreie Schulen“) ----------
+     Gleiche Elemente, gleiche Schrift – nur Rot wird Dunkelgrün. */
+  .theme-green {
+    --color-red: #2f4b2c;
+    --color-red-hot: #3d6a33;
+    --color-ink: #1a2917;
+    --shadow-rgb: 20 34 18;
+    --shadow-deep-rgb: 9 18 9;
+    color: var(--color-ink);
+  }
+  /* Das rote Megafon-Motiv gehört zum Streik, nicht auf die grüne Seite */
+  .theme-green .ikarus {
+    display: none !important;
+  }
+  /* Camouflage: liegt über der Flächenfarbe, läuft oben und unten weich aus */
+  .theme-green .camo {
+    isolation: isolate;
+  }
+  .theme-green .camo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("/img/camo.png") center top / 30rem auto;
+    opacity: 0.85;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8rem, #000 calc(100% - 8rem), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 8rem, #000 calc(100% - 8rem), transparent 100%);
+  }
+
+  /* ---------- Überschriften der Unterseiten ---------- */
+  .page-head > * {
+    display: block;
+    white-space: nowrap;
+  }
+  .sh-1 {
+    margin-left: 0.6cqw;
+    font-size: max(5.4cqw, 1.35rem);
+  }
+  .sh-2 {
+    margin-top: 0.06em;
+    font-size: min(12.4cqw, 13rem);
+  }
+
+  /* ---------- Hero-Karte Schulstreik (ohne Datum) ---------- */
+  .teaser-sub {
+    position: absolute;
+    left: 46.8cqw;
+    top: 50cqw;
+    font-size: 7.2cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.88;
+  }
+  .poster-claim {
+    position: absolute;
+    right: 5cqw;
+    top: 92.5cqw;
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .poster-claim small {
+    display: block;
+    color: var(--color-ink);
+    font-size: 4.6cqw;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .poster-claim b {
+    display: block;
+    margin-top: 0.8cqw;
+    font-size: 15.5cqw;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -0.062em;
+    line-height: 0.8;
+  }
+
+  /* ---------- Eigenständiger Schulstreik-Titel (Plakat-Typografie) ---------- */
+  .strike-page-title > * {
+    display: block;
+    white-space: nowrap;
+  }
+  .strike-page-title > span:first-child {
+    font-size: 24cqw;
+  }
+  .strike-page-title > em {
+    margin-top: 0.08em;
+    margin-left: 5cqw;
+    color: var(--color-red-hot);
+    font-size: 23cqw;
+  }
+  .strike-page-title-small {
+    margin-top: 0.35em;
+    font-size: 7.9cqw;
+  }
+
+  /* ---------- Schild-Karte (Unterseiten-Hero) ---------- */
+  .signpost {
+    container-type: inline-size;
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    rotate: 2.5deg;
+    transition: transform 0.25s ease;
+  }
+  .signpost:hover {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  .teaser-card--camo {
+    background: var(--color-red) url("/img/camo.png") center / 26rem auto;
+  }
+  .signpost-zero {
+    position: absolute;
+    left: 5.5cqw;
+    top: 19cqw;
+    font-size: 50cqw;
+    letter-spacing: -0.06em;
+  }
+  .signpost-text {
+    position: absolute;
+    left: 45cqw;
+    top: 31cqw;
+  }
+  .signpost-text b {
+    display: block;
+    font-size: 7.6cqw;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.062em;
+    line-height: 0.85;
+  }
+  .signpost-text span {
+    display: block;
+    margin-top: 1.6cqw;
+    font-size: 5.3cqw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  /* ---------- Zahlen, Listen, Vorlagen ---------- */
+  .stat-no {
+    font-size: clamp(3rem, 6.2vw, 5.25rem);
+  }
+  .ticks > li {
+    position: relative;
+    padding-left: 1.55em;
+  }
+  .ticks > li + li {
+    margin-top: 0.5em;
+  }
+  .ticks > li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    font-weight: 900;
+  }
+  .ally-logo {
+    display: block;
+    height: 6.25rem;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  .template {
+    margin: 0;
+    font: inherit;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Formulare (Petition) ---------- */
+  .field-label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+  .input {
+    display: block;
+    width: 100%;
+    border: 2.5px solid var(--color-red);
+    border-radius: 1rem;
+    background: #f7f2e8;
+    color: var(--color-ink);
+    padding: 0.7rem 0.95rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .input:focus-visible {
+    outline-offset: 2px;
+  }
+  .input[aria-invalid="true"] {
+    border-style: dashed;
+  }
+  .check {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    cursor: pointer;
+  }
+  .check input {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0.1rem;
+    accent-color: var(--color-red);
+    cursor: pointer;
+  }
+  .progress {
+    height: 1.15rem;
+    overflow: hidden;
+    border: 3px solid var(--color-cream);
+    border-radius: 999px;
+  }
+  .progress > span {
+    display: block;
+    height: 100%;
+    min-width: 0.6rem;
+    border-radius: 999px;
+    background: var(--color-cream);
+    transition: width 0.6s ease;
+  }
+  button.pill {
+    border: 0;
+    cursor: pointer;
+  }
+  button.pill:disabled {
+    cursor: progress;
+    opacity: 0.7;
   }
 }

@@ -1,14 +1,18 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Wordmark } from "./ui";
 
 const LINKS = [
-  { href: "#wir", label: "Über uns" },
-  { href: "#themen", label: "Themen" },
-  { href: "#termine", label: "Termine" },
-  { href: "#mitmachen", label: "Mitmachen" },
+  { href: "/ueber-uns", label: "Über uns" },
+  { href: "/themen", label: "Themen" },
+  { href: "/bundeswehrfreie-schulen", label: "Bundeswehrfreie Schulen" },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -20,36 +24,36 @@ export function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const current = (href: string) => (href === pathname ? ("page" as const) : undefined);
+
   return (
     <header className="pointer-events-none sticky top-0 z-50">
       <div className="page">
-        <nav
-          aria-label="Hauptnavigation"
-          className="on-red pointer-events-auto rounded-b-[1.1rem] px-4 shadow-[0_14px_26px_-16px_rgb(60_12_4/0.75)] sm:px-6"
-        >
+        <nav aria-label="Hauptnavigation" className="on-red nav-bar pointer-events-auto rounded-b-[1.1rem] px-4 sm:px-6">
           <div className="flex min-h-[3.75rem] items-center justify-between gap-6">
-            <a
-              href="#top"
-              aria-label="Ikarus bleibt zivil – zum Seitenanfang"
+            <Link
+              href="/"
+              aria-label="Ikarus bleibt zivil – zur Startseite"
+              aria-current={current("/")}
               className="shrink-0 py-2"
               onClick={() => setOpen(false)}
             >
               <Wordmark className="text-[0.98rem]" />
-            </a>
+            </Link>
 
-            <ul className="hidden items-center gap-x-7 md:flex lg:gap-x-9">
+            <ul className="hidden items-center gap-x-7 lg:flex xl:gap-x-9">
               {LINKS.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="label nav-link text-[1.167rem]">
+                  <Link href={link.href} aria-current={current(link.href)} className="label nav-link text-[1.167rem]">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
 
             <button
               type="button"
-              className="label -mr-1 flex items-center gap-2.5 px-1 py-2 text-[1.167rem] md:hidden"
+              className="label -mr-1 flex cursor-pointer items-center gap-2.5 px-1 py-2 text-[1.167rem] lg:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((value) => !value)}
@@ -70,12 +74,17 @@ export function Nav() {
             </button>
           </div>
 
-          <ul id="mobile-menu" hidden={!open} className="border-t-2 border-cream/45 pb-3 pt-1 md:hidden">
-            {LINKS.map((link) => (
+          <ul id="mobile-menu" hidden={!open} className="border-t-2 border-cream/45 pb-3 pt-1 lg:hidden">
+            {[{ href: "/", label: "Start" }, ...LINKS].map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="display block py-3 text-[2.1rem]" onClick={() => setOpen(false)}>
+                <Link
+                  href={link.href}
+                  aria-current={current(link.href)}
+                  className="display block py-3 text-[min(1.9rem,7.4vw)] leading-[0.9]"
+                  onClick={() => setOpen(false)}
+                >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

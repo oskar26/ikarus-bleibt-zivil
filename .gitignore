@@ -1,3 +1,24 @@
-.vercel
-.env*
-node_modules
+# Abhängigkeiten
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Produktion
+build/
+dist/
+
+# Umgebung
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# System
+.DS_Store
+*.log
+*.tsbuildinfo

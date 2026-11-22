@@ -67,7 +67,12 @@ const STEPS: { title: string; text: string }[] = [
   },
 ];
 
-export function Join() {
+type JoinProps = {
+  /** Die drei Schritte „Vorbeikommen · Mitlesen · Mitmachen“ – auf der Startseite ausgeblendet */
+  steps?: boolean;
+};
+
+export function Join({ steps = false }: JoinProps) {
   return (
     <section id="mitmachen" className="on-cream relative overflow-hidden">
       <HalftoneEdge direction="up" className="-mt-px" />
@@ -89,7 +94,7 @@ export function Join() {
             <div className="cta mt-8">
               <Arrow className="h-[2.9rem] w-auto -translate-y-2 max-[379px]:hidden sm:h-[3.4rem]" />
               <Pill href="#termine" className="text-[1.2rem] sm:text-[1.6rem]">
-                Zum nächsten <em>Termin</em>
+                Zu unserem <em>Termin</em>
               </Pill>
               <Arrow mirrored className="h-[2.9rem] w-auto -translate-y-2 max-sm:hidden sm:h-[3.4rem]" />
             </div>
@@ -98,24 +103,60 @@ export function Join() {
 
         <ChannelCards />
 
-        <ol className="mt-14 grid gap-x-10 gap-y-10 lg:mt-16 lg:grid-cols-3">
-          {STEPS.map((step, index) => (
-            <li
-              key={step.title}
-              className="@container border-t-4 border-red pt-5"
-              data-reveal
-              style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
-            >
-              <h3 className="display flex items-baseline gap-[0.3em] text-[min(10.2cqw,2.6rem)] text-red">
-                <span aria-hidden="true" className="topic-no !text-[1em]" style={{ WebkitTextStrokeWidth: "1.5px" }}>
-                  {index + 1}
-                </span>
-                {step.title}
-              </h3>
-              <p className="copy mt-4 text-[1.2rem]">{step.text}</p>
-            </li>
-          ))}
-        </ol>
+        {steps && (
+          <ol className="mt-14 grid gap-x-10 gap-y-10 lg:mt-16 lg:grid-cols-3">
+            {STEPS.map((step, index) => (
+              <li
+                key={step.title}
+                className="@container border-t-4 border-red pt-5"
+                data-reveal
+                style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
+              >
+                <h3 className="display flex items-baseline gap-[0.3em] text-[min(10.2cqw,2.6rem)] text-red">
+                  <span aria-hidden="true" className="topic-no !text-[1em]" style={{ WebkitTextStrokeWidth: "1.5px" }}>
+                    {index + 1}
+                  </span>
+                  {step.title}
+                </h3>
+                <p className="copy mt-4 text-[1.2rem]">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        )}
+      </div>
+
+      <HalftoneEdge direction="down" className="-mb-px" />
+    </section>
+  );
+}
+
+/** Kurzer Mitmach-Aufruf für Unterseiten – führt zur Startseite und zum Kanal. */
+export function JoinTeaser() {
+  return (
+    <section className="on-cream relative overflow-hidden">
+      <HalftoneEdge direction="up" className="-mt-px" />
+
+      <div className="page pb-12 pt-8 lg:pb-16 lg:pt-10">
+        <div className="grid items-center gap-x-10 gap-y-8 lg:grid-cols-12">
+          <div className="lg:col-span-7" data-reveal>
+            <h2 className="display text-[clamp(3.2rem,9vw,7.5rem)] text-red">
+              Mach <em className="text-red-hot">mit!</em>
+            </h2>
+            <p className="copy mt-5 max-w-[36rem] text-[1.25rem] lg:text-[1.4rem]">
+              Du musst nichts können und nichts wissen. {meeting.rhythm}, {meeting.lesson}, {meeting.time} im{" "}
+              {meeting.place} – komm einfach vorbei.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 lg:col-span-5 lg:justify-end" data-reveal>
+            <Pill href="/#mitmachen" className="text-[1.2rem] sm:text-[1.5rem]">
+              So machst du <em>mit</em>
+            </Pill>
+            <Pill href={channels.whatsapp.url} external className="text-[1.2rem] sm:text-[1.5rem]">
+              WhatsApp-<em>Kanal</em>
+            </Pill>
+          </div>
+        </div>
       </div>
 
       <HalftoneEdge direction="down" className="-mb-px" />

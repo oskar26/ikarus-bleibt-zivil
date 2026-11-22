@@ -5,7 +5,7 @@
     "orgId": "team_FUvPuY4GlQyQ6NOYbk4glHMg",
     "scope": "ossighg26-7466s-projects",
     "productionUrl": "https://ikarus-bleibt-zivil.vercel.app",
-    "framework": "Vite"
+    "framework": "Next.js"
   },
   "linked": true,
   "linkedVia": ".vercel/project.json"
